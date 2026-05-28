@@ -1,0 +1,868 @@
+<!-- ======================================= -->
+<!-- DECK PAGE — deck.html -->
+<!-- VERSIONE CON BACK PERSONALIZZATI -->
+<!-- ======================================= -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<title>Deck</title>
+
+<link rel="stylesheet" href="https://use.typekit.net/lpr7yir.css">
+
+<style>
+
+/* ======================================= */
+/* RESET */
+/* ======================================= */
+
+@font-face{
+
+  font-family:"Alte Haas";
+  src:url("font/AlteHaasGrotesk-Regular.otf");
+
+}
+
+@font-face {
+  font-family: "Alte Haas Bold" ;
+  src: url(font/AlteHaasGroteskBold.ttf);
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:"Alte Haas", "Alte Haas Bold", sans-serif;
+}
+
+/* ======================================= */
+/* BODY */
+/* ======================================= */
+
+body{
+
+  background-image:
+  radial-gradient(at 51% 32%, #f8f6f3 0px, transparent 50%),
+  radial-gradient(at 90% 14%, #3e5145 0px, transparent 50%),
+  radial-gradient(at 0% 51%, #fff999 0px, transparent 50%),
+  radial-gradient(at 55% 84%, #d579ab 0px, transparent 50%),
+  radial-gradient(at 0% 100%, #fff999 0px, transparent 50%),
+  radial-gradient(at 94% 87%, #d579ab 0px, transparent 50%),
+  radial-gradient(at 0% 0%, #d579ab 0px, transparent 50%);
+
+  height:100vh;
+
+  overflow:hidden;
+
+  display:flex;
+  justify-content:center;
+  align-items:center;
+
+}
+
+/* ======================================= */
+/* SCENE */
+/* ======================================= */
+
+.scene{
+
+  width:100%;
+  max-width:430px;
+
+  height:100vh;
+
+  position:relative;
+
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+
+  overflow:hidden;
+
+}
+
+/* ======================================= */
+/* TITLE */
+/* ======================================= */
+
+.title{
+
+  position:absolute;
+
+  top:90px;
+  font-family: "lores-9-plus-narrow", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+  color:white;
+
+  font-size:38px;
+  line-height:1;
+
+  text-align:center;
+  width:250px;
+  font-weight:700;
+
+}
+
+.title img{
+  width:100%;
+}
+
+/* ======================================= */
+/* TAP */
+/* ======================================= */
+
+.tap{
+
+  position:absolute;
+
+  bottom:70px;
+
+  color:rgba(255,255,255,0.45);
+
+  font-size:13px;
+
+  letter-spacing:1px;
+
+  text-transform:uppercase;
+
+  text-align:center;
+
+}
+
+/* ======================================= */
+/* BACK BUTTON */
+/* ======================================= */
+
+.back-button{
+
+  position:absolute;
+
+  top:30px;
+  left:25px;
+
+  width:48px;
+  height:48px;
+
+  border-radius:50%;
+
+  background:rgba(255,255,255,0.12);
+
+  backdrop-filter:blur(10px);
+
+  display:flex;
+  justify-content:center;
+  align-items:center;
+
+  color:white;
+
+  font-size:28px;
+  font-weight:700;
+
+  cursor:pointer;
+
+  z-index:9999;
+
+  transition:0.2s ease;
+
+}
+
+.back-button:hover{
+
+  transform:scale(1.08);
+
+  background:rgba(255,255,255,0.2);
+
+}
+
+/* ======================================= */
+/* DECK */
+/* ======================================= */
+
+.deck{
+
+  width:240px;
+  height:360px;
+
+  position:relative;
+
+  perspective:2000px;
+
+  cursor:pointer;
+
+}
+
+/* ======================================= */
+/* CARD */
+/* ======================================= */
+
+.card{
+
+  position:absolute;
+
+  width:100%;
+  height:100%;
+
+  border-radius:28px;
+
+  transform-style:preserve-3d;
+
+  transition:0.4s ease;
+  
+
+  /* OMBRA */
+  box-shadow:
+  0px 5px 10px rgba(0,0,0,0.20),
+  0px 2px 5px rgba(0,0,0,0.12);
+
+}
+
+/* ======================================= */
+/* FRONT + BACK */
+/* ======================================= */
+
+.front,
+.back{
+
+  position:absolute;
+
+  width:100%;
+  height:100%;
+
+  border-radius:28px;
+
+  backface-visibility:hidden;
+  overflow: hidden;
+
+}
+
+/* ======================================= */
+/* BACK */
+/* ======================================= */
+
+.back{
+
+  background-size:cover;
+  background-position:center;
+  background-repeat:no-repeat;
+
+  border:
+  2px solid rgba(255,255,255,0.08);
+
+  box-shadow:
+  0px 0px 30px rgba(255,255,255,0.05);
+
+}
+
+/* ======================================= */
+/* FRONT */
+/* ======================================= */
+
+.front{
+
+  transform:rotateY(180deg);
+
+  padding:30px;
+
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+
+  color:black;
+
+}
+
+/* ======================================= */
+/* TEXT */
+/* ======================================= */
+
+.quote{
+
+  font-size:28px;
+  line-height:1;
+
+  font-weight:700;
+
+}
+
+.author{
+
+  font-size:13px;
+
+  opacity:0.7;
+
+}
+
+/* ======================================= */
+/* REVEAL */
+/* ======================================= */
+
+.reveal{
+
+  transform:
+  translateY(-10px)
+  rotateY(180deg)
+  rotate(0deg) !important;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="scene">
+<div class="back-button" id="backButton">
+
+  ←
+
+</div>
+
+  <!-- =================================== -->
+  <!-- TITLE -->
+  <!-- =================================== -->
+
+  <div class="title">
+    <img src="img/tap-the-deck.png" alt="tap the deck"
+    style="filter: drop-shadow(0px 4px 16px rgb(255, 255, 255));">
+  </div>
+
+  <!-- =================================== -->
+  <!-- DECK -->
+  <!-- =================================== -->
+
+  <div
+    class="deck"
+    id="deck">
+
+  </div>
+
+  <!-- =================================== -->
+  <!-- TAP TEXT -->
+  <!-- =================================== -->
+
+  <div class="tap">
+
+    first tap = shuffle<br>
+    second tap = reveal<br>
+    third tap = replay
+
+  </div>
+
+</div>
+
+<script>
+
+/* ======================================= */
+/* CATEGORY */
+/* ======================================= */
+
+const params =
+new URLSearchParams(window.location.search);
+
+const category =
+params.get("category");
+
+/* ======================================= */
+/* BACK IMAGES */
+/* ======================================= */
+/*
+CAMBIA QUI LE IMMAGINI
+UNA VOLTA SOLA PER CATEGORIA
+*/
+
+
+
+/* ======================================= */
+/* CARDS */
+/* ======================================= */
+
+const social = [
+
+  {
+   front:"img/front/social-1.jpg",
+    back:"img/card social-01.jpg"
+  },
+
+  {
+   front:"img/front/social-2.jpg",
+    back:"img/card social-01.jpg"
+  },
+
+  {
+   front:"img/front/social-3.jpg",
+   back:"img/card social-01.jpg"
+  },
+
+  {
+   front:"img/front/social-4.jpg",
+   back:"img/card social-01.jpg"
+  },
+
+  {
+   front:"img/front/social-5.jpg",
+   back:"img/card social-01.jpg"
+  },
+
+  {
+   front:"img/front/social-6.jpg",
+   back:"img/card social-01.jpg"
+  },
+
+  {
+   front:"img/front/social-7.jpg",
+   back:"img/card social-01.jpg"
+  },
+
+  {
+   front:"img/front/social-8.jpg",
+   back:"img/card social-01.jpg"
+  },
+
+  {
+   front:"img/front/social-9.jpg",
+   back:"img/card social-01.jpg"
+  },
+
+  {
+   front:"img/front/social-10.jpg",
+   back:"img/card social-01.jpg"
+  },
+
+  
+
+  
+
+];
+
+const antisocial = [
+
+  {
+   front:"img/front/antisocial-1.jpg",
+    back:"img/card antisocial-01.jpg"
+  },
+
+  {
+   front:"img/front/antisocial-2.jpg",
+    back:"img/card antisocial-01.jpg"
+  },
+
+  {
+   front:"img/front/antisocial-3.jpg",
+    back:"img/card antisocial-01.jpg"
+  },
+
+  {
+   front:"img/front/antisocial-4.jpg",
+    back:"img/card antisocial-01.jpg"
+  },
+
+  {
+   front:"img/front/antisocial-5.jpg",
+    back:"img/card antisocial-01.jpg"
+  },
+
+  {
+   front:"img/front/antisocial-6.jpg",
+    back:"img/card antisocial-01.jpg"
+  },
+
+  {
+   front:"img/front/antisocial-7.jpg",
+    back:"img/card antisocial-01.jpg"
+  },
+
+  {
+   front:"img/front/antisocial-8.jpg",
+    back:"img/card antisocial-01.jpg"
+  },
+
+  {
+   front:"img/front/antisocial-9.jpg",
+    back:"img/card antisocial-01.jpg"
+  },
+
+  {
+   front:"img/front/antisocial-10.jpg",
+    back:"img/card antisocial-01.jpg"
+  },
+
+
+];
+
+const hybrid = [
+
+  {
+   front:"img/front/antianti-1.jpg",
+    back:"img/card antiantisocial-01.jpg"
+  },
+
+  {
+   front:"img/front/antianti-2.jpg",
+    back:"img/card antiantisocial-01.jpg"
+  },
+
+  {
+   front:"img/front/antianti-3.jpg",
+    back:"img/card antiantisocial-01.jpg"
+  },
+
+  {
+   front:"img/front/antianti-4.jpg",
+    back:"img/card antiantisocial-01.jpg"
+  },
+
+  {
+   front:"img/front/antianti-5.jpg",
+    back:"img/card antiantisocial-01.jpg"
+  },
+
+  {
+   front:"img/front/antianti-6.jpg",
+    back:"img/card antiantisocial-01.jpg"
+  },
+
+  {
+   front:"img/front/antianti-7.jpg",
+    back:"img/card antiantisocial-01.jpg"
+  },
+
+  {
+   front:"img/front/antianti-8.jpg",
+    back:"img/card antiantisocial-01.jpg"
+  },
+
+  {
+   front:"img/front/antianti-9.jpg",
+    back:"img/card antiantisocial-01.jpg"
+  },
+
+  {
+   front:"img/front/antianti-10.jpg",
+    back:"img/card antiantisocial-01.jpg"
+  },
+
+];
+
+/* ======================================= */
+/* CATEGORY DATA */
+/* ======================================= */
+
+let cardsData = [];
+
+if(category === "social"){
+  cardsData = social;
+}
+
+if(category === "antisocial"){
+  cardsData = antisocial;
+}
+
+if(category === "hybrid"){
+  cardsData = hybrid;
+}
+
+if(category === "random"){
+
+  cardsData = [
+
+    ...social,
+    ...antisocial,
+    ...hybrid
+
+  ];
+
+}
+
+/* ======================================= */
+/* SHUFFLE */
+/* ======================================= */
+
+cardsData =
+cardsData.sort(() => Math.random() - 0.5);
+
+/* ======================================= */
+/* CREATE CARDS */
+/* ======================================= */
+
+const deck =
+document.getElementById("deck");
+
+const backButton =
+document.getElementById("backButton");
+
+cardsData.forEach((card,index)=>{
+
+  const cardEl =
+  document.createElement("div");
+
+  cardEl.classList.add("card");
+
+  /* =================================== */
+  /* CARD HTML */
+  /* =================================== */
+
+  cardEl.innerHTML = `
+
+    <div
+      class="back"
+      style="
+      background-image:url('${card.back}');
+      background-size:cover;
+      background-position:center;
+      background-repeat:no-repeat;
+      ">
+
+    </div>
+
+   <div
+    class="front"
+    style="
+    background-image:url('${card.front}');
+    background-size:100% 100%;
+    background-position:center;
+    background-repeat:no-repeat;
+    ">
+
+  </div>
+
+  `;
+
+  /* =================================== */
+  /* INITIAL POSITION */
+  /* =================================== */
+
+  cardEl.style.zIndex = index;
+
+  cardEl.style.transform = `
+
+    rotate(${Math.random()*10-5}deg)
+    translateY(${index * -2}px)
+
+  `;
+
+  deck.appendChild(cardEl);
+
+});
+
+/* ======================================= */
+/* STATES */
+/* ======================================= */
+
+const cards =
+document.querySelectorAll(".card");
+
+let mixing = false;
+
+let revealed = false;
+
+let selectedCard = null;
+
+let shuffleLoop;
+
+/* ======================================= */
+/* TAP */
+/* ======================================= */
+
+deck.addEventListener("click",()=>{
+
+  /* ============================== */
+  /* FIRST TAP = START SHUFFLE */
+  /* ============================== */
+
+  if(!mixing && !revealed){
+
+    mixing = true;
+
+    startShuffle();
+
+    return;
+
+  }
+
+  /* ============================== */
+  /* SECOND TAP = REVEAL */
+  /* ============================== */
+
+  if(mixing && !revealed){
+
+    stopShuffleAndReveal();
+
+    return;
+
+  }
+
+  /* ============================== */
+  /* THIRD TAP = RESET */
+  /* ============================== */
+
+  if(revealed){
+
+    resetDeck();
+
+  }
+
+});
+
+
+function startShuffle(){
+
+  shuffleLoop = setInterval(()=>{
+
+    cards.forEach((card)=>{
+
+      const angle =
+      Math.random() * 360;
+
+      const radius =
+      20 + Math.random() * 50;
+
+      const x =
+      Math.cos(angle) * radius;
+
+      const y =
+      Math.sin(angle) * radius;
+
+      const rotation =
+      Math.random() * 60 - 30;
+
+      const depth =
+      Math.floor(Math.random() * 10);
+
+      card.style.zIndex = depth;
+
+      card.style.transform = `
+
+        translate(${x}px, ${y}px)
+        rotate(${rotation}deg)
+
+      `;
+
+    });
+
+  },260);
+
+}
+
+/* ======================================= */
+/* STOP + REVEAL */
+/* ======================================= */
+
+function stopShuffleAndReveal(){
+
+  revealed = true;
+
+  clearInterval(shuffleLoop);
+
+  /* =================================== */
+  /* RANDOM CARD */
+  /* =================================== */
+
+
+  selectedCard =
+  cards[
+    Math.floor(Math.random() * cards.length)
+  ];
+
+  /* =================================== */
+  /* REMOVE OTHERS */
+  /* =================================== */
+
+  cards.forEach((card)=>{
+
+    if(card !== selectedCard){
+
+      const x =
+      Math.random() * 80 - 40;
+
+      const y =
+      180 + Math.random() * 60;
+
+      const rotate =
+      Math.random() * 40 - 20;
+
+      card.style.opacity = "0";
+
+      card.style.transform = `
+
+        translate(${x}px, ${y}px)
+        rotate(${rotate}deg)
+
+      `;
+
+    }
+
+  });
+
+  /* =================================== */
+  /* REVEAL */
+  /* =================================== */
+
+  setTimeout(()=>{
+
+   selectedCard.style.zIndex = "999";
+    selectedCard.classList.add("reveal");
+
+  },500);
+
+}
+
+function resetDeck(){
+
+  revealed = false;
+
+  mixing = false;
+
+  cards.forEach((card,index)=>{
+
+    /* ========================== */
+    /* RESET OPACITY */
+    /* ========================== */
+
+    card.style.opacity = "1";
+
+    /* ========================== */
+    /* REMOVE REVEAL */
+    /* ========================== */
+
+    card.classList.remove("reveal");
+
+    /* ========================== */
+    /* RESET POSITION */
+    /* ========================== */
+
+    card.style.zIndex = index;
+
+    card.style.transform = `
+
+      rotate(${Math.random()*10-5}deg)
+      translateY(${index * -2}px)
+
+    `;
+
+  });
+
+}
+
+/* ======================================= */
+/* BACK TO INDEX */
+/* ======================================= */
+
+backButton.addEventListener("click",()=>{
+
+  window.location.href = "index.html";
+
+});
+
+</script>
+
+</body>
+
+</html>
